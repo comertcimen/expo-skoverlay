@@ -1,12 +1,21 @@
-import { NativeModule, requireNativeModule } from 'expo';
+import { NativeModule, requireNativeModule } from "expo";
 
-import { ExpoSKOverlayModuleEvents } from './ExpoSKOverlay.types';
+export type Position = "bottomRaised" | "bottom";
 
-declare class ExpoSKOverlayModule extends NativeModule<ExpoSKOverlayModuleEvents> {
-  PI: number;
-  hello(): string;
-  setValueAsync(value: string): Promise<void>;
+declare class ExpoSKOverlayModule extends NativeModule {
+  showOverlay(appIdentifier: string, position?: Position): Promise<void>;
 }
 
-// This call loads the native module object from the JSI.
-export default requireNativeModule<ExpoSKOverlayModule>('ExpoSKOverlay');
+const ExpoSKOverlay = requireNativeModule<ExpoSKOverlayModule>("ExpoSKOverlay");
+
+/**
+ * Shows the SKOverlay App Clip banner.
+ * @param appIdentifier The iTunes Item Identifier (App Store ID)
+ * @param position The position of the overlay (default: Bottom)
+ */
+export async function showSKOverlay(
+  appIdentifier: string,
+  position: Position = "bottom"
+): Promise<void> {
+  return ExpoSKOverlay.showOverlay(appIdentifier, position);
+}
