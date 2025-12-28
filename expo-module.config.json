@@ -1,0 +1,9 @@
+{
+  "platforms": ["apple", "android", "web"],
+  "apple": {
+    "modules": ["ExpoSKOverlayModule"]
+  },
+  "android": {
+    "modules": ["expo.modules.skoverlay.ExpoSKOverlayModule"]
+  }
+}
